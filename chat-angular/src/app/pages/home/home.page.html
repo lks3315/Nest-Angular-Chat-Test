@@ -1,0 +1,17 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Test App 티비스톰 이경석
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" padding>
+  <ion-item>
+    <ion-label stacked>닉네임을 정해주세요 : </ion-label>
+    <ion-input type="text" [(ngModel)]="nickname" placeholder="닉네임 입력" maxlength="20"></ion-input>
+  </ion-item>
+  <ion-button full (click)="joinChat()" [disabled]="nickname === ''" style="margin-left: 1%;">
+    {{nickname}}님 입장
+  </ion-button>
+</ion-content>

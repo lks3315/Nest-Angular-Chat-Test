@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>채팅방</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row *ngFor="let message of messages">
+      <!--      상대방이 보낸 메시지를 채팅방에 출력하는 부분, 나의 nickname과 같지 않은 메시지가 넘어올 때 화면 처리-->
+      <ion-col size="9" *ngIf="message.from !== nickname" class="message"
+               [ngClass]="{'my_message' : message.from === nickname, 'other_message' : message.from !== nickname}">
+        <span class="user-name">[{{message.from}}]</span><br>
+        <span>{{message.text}}</span>
+        <div class="time">{{message.created | date: 'dd.MM hh:MM'}}</div>
+      </ion-col>
+
+      <!--      나의 nickname과 같을 때 메시지 뿌려주기, 내가 보낸 메시지 화면에 띄우기-->
+      <ion-col offset="3" size="9" *ngIf="message.from === nickname" class="message"
+               [ngClass]="{'my_message': message.from === nickname, 'other_message': message.from !== nickname}">
+        <span class="user-name">[{{message.from}}]</span> <br>
+        <span>{{message.text}}</span>
+        <div class="time">{{message.created | date: 'dd.MM hh:MM'}}</div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-row class="message_row">
+      <ion-col size="9">
+        <ion-item no-line>
+          <ion-input type="text" placeholder="Message" [(ngModel)]="message"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col size="3">
+        <ion-button clear color="primary" (click)="sendMessage()" [disabled]="message === ''">
+          보내기
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>
